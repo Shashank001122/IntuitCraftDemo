@@ -5,8 +5,8 @@ In the project directory, you can run:
 ### `2) or you can download the zip file from the Github UI`
 
 ### `To run this project`
-### `npm install`to install devDependencies
-### `npm start` to start the project
+### `1) npm install`to install devDependencies
+### `2) npm start` to start the project
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
