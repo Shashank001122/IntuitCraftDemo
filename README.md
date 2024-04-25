@@ -1,4 +1,6 @@
 In the project directory, you can run:
+
+### `to download this project, use git cli and run git clone  or you can download the zip file from the Github UI`
 ### `npm install`to install devDependencies
 ### `npm start` to start the project
 
