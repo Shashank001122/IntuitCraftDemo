@@ -6,5 +6,6 @@
 ### `1) npm install`to install devDependencies
 ### `2) npm start` to start the project
 
-This Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### This Runs the app in the development mode.\
+### Open [http://localhost:3000](http://localhost:3000) to view it in your browser. 
+### App takes some time to run, please wait till then
