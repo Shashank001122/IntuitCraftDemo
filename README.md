@@ -2,7 +2,7 @@
 ### `1) use git cli and run git clone
 ### `2) or you can download the zip file from the Github UI`
 
-### `To run this project`
+### `To run this project go inside the IntuitCraftDemo folder`
 ### `1) npm install`to install devDependencies
 ### `2) npm start` to start the project
 
