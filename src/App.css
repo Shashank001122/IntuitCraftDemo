@@ -1,38 +1,106 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app {
   display: flex;
-  flex-direction: column;
+  width: 100%;
+}
+
+.column {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid black; /* Added border */
+}
+
+.big-card {
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  padding-bottom: 40px;
+  margin-top: 40px;
+}
+
+.category-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.eachcard {
+  flex: 0 1 48%;
+  background-color: #b5d0e8;
+  border-radius: 10px;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 20px;
+}
+
+.eachcard.overlap {
+  background-color: #D8D8D8;
+}
+
+.eachcard.overlap .details button {
+  background-color: #9C9898;
+}
+
+.eachcard .category {
+  flex: 1;
+  font-size: 60px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: capitalize;
+  margin-top: 10px;
+}
+
+.eachcard .vertical-line {
+  border-left: 2px solid black;
+  height: 95%;
+  margin: 0 10px;
+}
+
+.eachcard .details {
+  flex: 3;
+  padding-left: 10px;
+}
+
+.eachcard .details span {
+  display: block;
+  margin-top: 5px;
+}
+
+.eachcard .details span.event-name {
+  font-weight: bold;
+  font-size: large;
+}
+
+.eachcard .details button {
+  background-color: rgb(70, 137, 25);
   color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 5px;
+  width: 80%;
+  border-radius: 5px;
 }
 
-.App-link {
-  color: #61dafb;
+.eachcard .details button.red-button {
+  background-color: #E84646;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 5px;
+  width: 80%;
+  border-radius: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.divider {
+  width: 2px;
+  background-color: #ccc;
+  margin: 0 20px;
 }
+
