@@ -1,8 +1,10 @@
 In the project directory, you can run:
 
-### `To download this project,`
+### `To download this project`
 ### `1) use git cli and run git clone, after cloning if current branch is not master then run git checkout master`
 ### `2) or you can download the zip file from the Github UI`
+
+### `To run this project`
 ### `npm install`to install devDependencies
 ### `npm start` to start the project
 
