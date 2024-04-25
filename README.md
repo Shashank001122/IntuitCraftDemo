@@ -1,5 +1,6 @@
 ### `To download this project`
-### `Use git cli and run command- git clone https://github.com/Shashank001122/IntuitCraftDemo.git or you can download the zip file from the Github UI`
+### `Use git cli and run command- git clone https://github.com/Shashank001122/IntuitCraftDemo.git`
+### `or you can download the zip file from the Github UI`
 
 ### `To run this project go inside the IntuitCraftDemo folder`
 ### `1) npm install`to install Dependencies
