@@ -1,79 +1,20 @@
 import React, { useState } from "react";
 import "./App.css";
+import Event from "./Event";
+import Category from "./Category";
 
 // Sample data
 let eventData = [
-  {
-    id: 1,
-    event_name: "Butterfly 100M",
-    event_category: "Swimming",
-    start_time: "2022-12-17 13:00:00",
-    end_time: "2022-12-17 14:00:00",
-  },
-  {
-    id: 2,
-    event_name: "Backstroke 100M",
-    event_category: "Swimming",
-    start_time: "2022-12-17 13:30:00",
-    end_time: "2022-12-17 14:30:00",
-  },
-  {
-    id: 3,
-    event_name: "Freestyle 400M",
-    event_category: "Swimming",
-    start_time: "2022-12-17 15:00:00",
-    end_time: "2022-12-17 16:00:00",
-  },
-  {
-    id: 4,
-    event_name: "High Jump",
-    event_category: "Athletics",
-    start_time: "2022-12-17 13:00:00",
-    end_time: "2022-12-17 14:00:00",
-  },
-  {
-    id: 5,
-    event_name: "Triple Jump",
-    event_category: "Athletics",
-    start_time: "2022-12-17 16:00:00",
-    end_time: "2022-12-17 17:00:00",
-  },
-  {
-    id: 6,
-    event_name: "Long Jump",
-    event_category: "Athletics",
-    start_time: "2022-12-17 17:00:00",
-    end_time: "2022-12-17 18:00:00",
-  },
-  {
-    id: 7,
-    event_name: "100M Sprint",
-    event_category: "Athletics",
-    start_time: "2022-12-17 17:00:00",
-    end_time: "2022-12-17 18:00:00",
-  },
-  {
-    id: 8,
-    event_name: "Lightweight 60kg",
-    event_category: "Boxing",
-    start_time: "2022-12-17 18:00:00",
-    end_time: "2022-12-17 19:00:00",
-  },
-
-  {
-    id: 9,
-    event_name: "Middleweight 75 kg",
-    event_category: "Boxing",
-    start_time: "2022-12-17 19:00:00",
-    end_time: "2022-12-17 20:00:00",
-  },
-  {
-    id: 10,
-    event_name: "Heavyweight 91kg",
-    event_category: "Boxing",
-    start_time: "2022-12-17 20:00:00",
-    end_time: "2022-12-17 22:00:00",
-  },
+  new Event(1, "Butterfly 100M", new Category(1,"Swimming"), "2022-12-17 13:00:00", "2022-12-17 14:00:00"),
+  new Event(2, "Backstroke 100M", new Category(1,"Swimming"), "2022-12-17 13:30:00", "2022-12-17 14:30:00"),
+  new Event(3, "Freestyle 400M", new Category(1,"Swimming"), "2022-12-17 15:00:00", "2022-12-17 16:00:00"),
+  new Event(4, "High Jump", new Category(2,"Athletics"), "2022-12-17 13:00:00", "2022-12-17 14:00:00"),
+  new Event(5, "Triple Jump", new Category(2,"Athletics"), "2022-12-17 16:00:00", "2022-12-17 17:00:00"),
+  new Event(6, "Long Jump", new Category(2,"Athletics"), "2022-12-17 17:00:00", "2022-12-17 18:00:00"),
+  new Event(7, "100M Sprint", new Category(2,"Athletics"), "2022-12-17 17:00:00", "2022-12-17 18:00:00"),
+  new Event(8, "Lightweight 60kg", new Category(3,"Boxing"), "2022-12-17 18:00:00", "2022-12-17 19:00:00"),
+  new Event(9, "Middleweight 75 kg", new Category(3,"Boxing"), "2022-12-17 19:00:00", "2022-12-17 20:00:00"),
+  new Event(10, "Heavyweight 91kg", new Category(3,"Boxing"), "2022-12-17 20:00:00", "2022-12-17 22:00:00"),
 ];
 
 const App = () => {
@@ -85,10 +26,10 @@ const App = () => {
   const groupByCategory = (events) => {
     const grouped = {};
     events.forEach((event) => {
-      if (!grouped[event.event_category]) {
-        grouped[event.event_category] = [];
+      if (!grouped[event.eventCategory.name]) {
+        grouped[event.eventCategory.name] = [];
       }
-      grouped[event.event_category].push(event);
+      grouped[event.eventCategory.name].push(event);
     });
     return grouped;
   };
@@ -96,12 +37,12 @@ const App = () => {
   const isOverlap = (startTime, endTime) => {
     return selectedEvents.some(
       (event) =>
-        (new Date(startTime) >= new Date(event.start_time) &&
-          new Date(startTime) < new Date(event.end_time)) ||
-        (new Date(endTime) > new Date(event.start_time) &&
-          new Date(endTime) <= new Date(event.end_time)) ||
-        (new Date(startTime) <= new Date(event.start_time) &&
-          new Date(endTime) >= new Date(event.end_time))
+        (new Date(startTime) >= new Date(event.startTime) &&
+          new Date(startTime) < new Date(event.endTime)) ||
+        (new Date(endTime) > new Date(event.startTime) &&
+          new Date(endTime) <= new Date(event.endTime)) ||
+        (new Date(startTime) <= new Date(event.startTime) &&
+          new Date(endTime) >= new Date(event.endTime))
     );
   };
 
@@ -116,7 +57,7 @@ const App = () => {
         (event) => event.id !== eventId
       );
       const newSelectedEvents = [...selectedEvents, newEvent].sort((a, b) => {
-        return new Date(a.start_time) - new Date(b.start_time);
+        return new Date(a.startTime) - new Date(b.startTime);
       });
       setAvailableEvents(newAvailableEvents);
       setSelectedEvents(newSelectedEvents);
@@ -132,7 +73,7 @@ const App = () => {
     );
     setSelectedEvents(updatedEvents);
     const noOverlapExists = !updatedEvents.some((event) =>
-      isOverlap(event.start_time, event.end_time)
+      isOverlap(event.startTime, event.endTime)
     );
     setOverlapExists(noOverlapExists);
     setAvailableEvents([
@@ -147,10 +88,10 @@ const App = () => {
 
   // Filter events based on search term
   const filteredEvents = availableEvents.filter((event) =>
-    event.event_name.toLowerCase().includes(searchTerm.toLowerCase())
+    event.eventName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const convertTimeToAMPMFormat=(startTime,endTime)=> {
+  const convertTimeToAMPMFormat = (startTime, endTime) => {
     const formatTime = (time) => {
       const [hours, minutes] = time.split(':').map(Number);
       const meridiem = hours >= 12 ? 'PM' : 'AM';
@@ -160,10 +101,8 @@ const App = () => {
   
     const formattedStartTime = formatTime(startTime.substr(11, 5));
     const formattedEndTime = formatTime(endTime.substr(11, 5));
-    console.log(formattedStartTime,formattedEndTime)
     return `${formattedStartTime}-${formattedEndTime}`;
   }
-  
 
   return (
     <div className="app">
@@ -185,12 +124,12 @@ const App = () => {
         </div>
         {Object.entries(groupByCategory(filteredEvents)).map(
           ([category, events]) => (
-            <div className="big-card">
+            <div className="big-card" key={category}>
               <h2>{category}</h2>
-              <div className="category-card" key={category}>
+              <div className="category-card">
                 {events.map((event) => (
                   <div className={`eachcard ${
-                    isOverlap(event.start_time, event.end_time)
+                    isOverlap(event.startTime, event.endTime)
                       ? "overlap"
                       : ""
                   }`} key={event.id}>
@@ -199,21 +138,21 @@ const App = () => {
                     </div>
                     <div className="vertical-line"></div>
                     <div className="details">
-                        <span className="event-name">{event.event_name}</span>
-                        <span>({category})</span>
-                        <span>{convertTimeToAMPMFormat(event.start_time,event.end_time)}</span>
-                        <button
-                          onClick={() =>
-                            handleEventSelect(
-                              event.id,
-                              event.start_time,
-                              event.end_time
-                            )
-                          }
-                          disabled={isOverlap(event.start_time, event.end_time)}
-                        >
-                          Select
-                        </button>
+                      <span className="event-name">{event.eventName}</span>
+                      <span>({category})</span>
+                      <span>{convertTimeToAMPMFormat(event.startTime, event.endTime)}</span>
+                      <button
+                        onClick={() =>
+                          handleEventSelect(
+                            event.id,
+                            event.startTime,
+                            event.endTime
+                          )
+                        }
+                        disabled={isOverlap(event.startTime, event.endTime)}
+                      >
+                        Select
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -223,14 +162,14 @@ const App = () => {
         )}
       </div>
       <div className="column">
-      <div>
+        <div>
           <h1 style={{ display: "inline-block", width: "60%" }}>Selected Events</h1>
         </div>
         {Object.entries(groupByCategory(selectedEvents)).map(
           ([category, events]) => (
-            <div className="big-card">
+            <div className="big-card" key={category}>
               <h2>{category}</h2>
-              <div className="category-card" key={category}>
+              <div className="category-card">
                 {events.map((event) => (
                   <div className="eachcard" key={event.id}>
                     <div className="category">
@@ -238,13 +177,12 @@ const App = () => {
                     </div>
                     <div className="vertical-line"></div>
                     <div className="details">
-                        <span className="event-name">{event.event_name}</span>
-                        <span>({category})</span>
-                        <span>{convertTimeToAMPMFormat(event.start_time,event.end_time)}</span>
-                    
-                         <button className="red-button" onClick={() => handleEventDeselect(event.id)}>
+                      <span className="event-name">{event.eventName}</span>
+                      <span>({category})</span>
+                      <span>{convertTimeToAMPMFormat(event.startTime, event.endTime)}</span>
+                      <button className="red-button" onClick={() => handleEventDeselect(event.id)}>
                         Remove
-                        </button>
+                      </button>
                     </div>
                   </div>
                 ))}
