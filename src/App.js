@@ -5,16 +5,23 @@ import Category from "./Category";
 
 // Sample data
 let eventData = [
-  new Event(1, "Butterfly 100M", new Category(1,"Swimming"), "2022-12-17 13:00:00", "2022-12-17 14:00:00"),
-  new Event(2, "Backstroke 100M", new Category(1,"Swimming"), "2022-12-17 13:30:00", "2022-12-17 14:30:00"),
-  new Event(3, "Freestyle 400M", new Category(1,"Swimming"), "2022-12-17 15:00:00", "2022-12-17 16:00:00"),
-  new Event(4, "High Jump", new Category(2,"Athletics"), "2022-12-17 13:00:00", "2022-12-17 14:00:00"),
-  new Event(5, "Triple Jump", new Category(2,"Athletics"), "2022-12-17 16:00:00", "2022-12-17 17:00:00"),
-  new Event(6, "Long Jump", new Category(2,"Athletics"), "2022-12-17 17:00:00", "2022-12-17 18:00:00"),
-  new Event(7, "100M Sprint", new Category(2,"Athletics"), "2022-12-17 17:00:00", "2022-12-17 18:00:00"),
-  new Event(8, "Lightweight 60kg", new Category(3,"Boxing"), "2022-12-17 18:00:00", "2022-12-17 19:00:00"),
-  new Event(9, "Middleweight 75 kg", new Category(3,"Boxing"), "2022-12-17 19:00:00", "2022-12-17 20:00:00"),
-  new Event(10, "Heavyweight 91kg", new Category(3,"Boxing"), "2022-12-17 20:00:00", "2022-12-17 22:00:00"),
+  new Event(1, "Butterfly 100M", 1, "2022-12-17 13:00:00", "2022-12-17 14:00:00"),
+  new Event(2, "Backstroke 100M", 1, "2022-12-17 13:30:00", "2022-12-17 14:30:00"),
+  new Event(3, "Freestyle 400M", 1, "2022-12-17 15:00:00", "2022-12-17 16:00:00"),
+  new Event(4, "High Jump", 2, "2022-12-17 13:00:00", "2022-12-17 14:00:00"),
+  new Event(5, "Triple Jump", 2, "2022-12-17 16:00:00", "2022-12-17 17:00:00"),
+  new Event(6, "Long Jump", 2, "2022-12-17 17:00:00", "2022-12-17 18:00:00"),
+  new Event(7, "100M Sprint", 2, "2022-12-17 17:00:00", "2022-12-17 18:00:00"),
+  new Event(8, "Lightweight 60kg", 3, "2022-12-17 18:00:00", "2022-12-17 19:00:00"),
+  new Event(9, "Middleweight 75 kg", 3, "2022-12-17 19:00:00", "2022-12-17 20:00:00"),
+  new Event(10, "Heavyweight 91kg", 3, "2022-12-17 20:00:00", "2022-12-17 22:00:00"),
+];
+
+// Sample category data
+const categoryData = [
+  new Category(1, "Swimming"),
+  new Category(2, "Athletics"),
+  new Category(3, "Boxing"),
 ];
 
 const App = () => {
@@ -26,10 +33,11 @@ const App = () => {
   const groupByCategory = (events) => {
     const grouped = {};
     events.forEach((event) => {
-      if (!grouped[event.eventCategory.name]) {
-        grouped[event.eventCategory.name] = [];
+      const category = categoryData.find((category) => category.id === event.categoryId);
+      if (!grouped[category.name]) {
+        grouped[category.name] = [];
       }
-      grouped[event.eventCategory.name].push(event);
+      grouped[category.name].push(event);
     });
     return grouped;
   };
@@ -53,15 +61,19 @@ const App = () => {
       alert("Event timing conflicts with already selected event(s).");
     } else if (selectedEvents.length < 3) {
       const newEvent = eventData.find((event) => event.id === eventId);
-      const newAvailableEvents = availableEvents.filter(
-        (event) => event.id !== eventId
-      );
-      const newSelectedEvents = [...selectedEvents, newEvent].sort((a, b) => {
-        return new Date(a.startTime) - new Date(b.startTime);
-      });
-      setAvailableEvents(newAvailableEvents);
-      setSelectedEvents(newSelectedEvents);
-      setOverlapExists(true);
+      if (newEvent) {
+        const newAvailableEvents = availableEvents.filter(
+          (event) => event.id !== eventId
+        );
+        const newSelectedEvents = [...selectedEvents, newEvent].sort((a, b) => {
+          return new Date(a.startTime) - new Date(b.startTime);
+        });
+        setAvailableEvents(newAvailableEvents);
+        setSelectedEvents(newSelectedEvents);
+        setOverlapExists(true);
+      } else {
+        alert("Event not found.");
+      }
     } else {
       alert("You can only select a maximum of 3 events.");
     }
@@ -76,10 +88,13 @@ const App = () => {
       isOverlap(event.startTime, event.endTime)
     );
     setOverlapExists(noOverlapExists);
-    setAvailableEvents([
-      ...availableEvents,
-      eventData.find((event) => event.id === eventId),
-    ]);
+    const deselectedEvent = eventData.find((event) => event.id === eventId);
+    if (deselectedEvent) {
+      setAvailableEvents([
+        ...availableEvents,
+        deselectedEvent
+      ]);
+    }
   };
 
   const handleSearch = (e) => {
