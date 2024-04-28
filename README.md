@@ -6,8 +6,8 @@
 ### `1) run npm install to install Dependencies`
 ### `2) run npm start to start the project`
 
-### `UML/Classs diagram is [https://github.com/Shashank001122/IntuitCraftDemo/blob/master/src/class.png](link)`
-### `ER diagram is [https://github.com/Shashank001122/IntuitCraftDemo/blob/master/src/er.png](link)`
+### `UML/Classs diagram is [https://github.com/Shashank001122/IntuitCraftDemo/blob/master/src/class.png](https://github.com/Shashank001122/IntuitCraftDemo/blob/master/src/class.png)`
+### `ER diagram is [https://github.com/Shashank001122/IntuitCraftDemo/blob/master/src/er.png](https://github.com/Shashank001122/IntuitCraftDemo/blob/master/src/er.png)`
 
 ### This Runs the app in the development mode.\
 ### Open [http://localhost:3000](http://localhost:3000) to view it in your browser. 
